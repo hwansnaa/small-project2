@@ -5,6 +5,7 @@ import time
 import pandas as pd
 import timeit
 from tqdm import trange
+import math
 # tesseract 경로
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract'
 
@@ -27,7 +28,6 @@ def Have(s):
 
 def isnan(value):
     try:
-        import math
         return math.isnan(float(value))
     except:
         return False
@@ -40,7 +40,7 @@ start = timeit.default_timer()
 test = df.shape[0]
 for testnumber in trange(test):
     #이미 검수가 완료된 경우에 대한 예외처리
-    if (isnan(df['correct'][testnumber]) != True):
+    if (isnan(df['correct'][testnumber]) == False):
         continue
     #파일이 없는 경우에 대한 에러 검출
     if ((Have(df['location'][testnumber]+'\\'+df['name'][testnumber]+'.png') == False )) :
